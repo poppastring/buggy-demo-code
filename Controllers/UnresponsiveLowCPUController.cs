@@ -13,9 +13,9 @@ namespace BuggyDemoCode.Controllers
             return Ok();
         }
 
-        public IActionResult SyncOverAsync()
+        public IActionResult SyncOverAsyncResult()
         {
-            var text = ReadTextAsync(string.Format(@"{0}\test.txt", Environment.CurrentDirectory)).Result;
+            var text = ReadTextAsync(string.Format(@"{0}\\test.txt", Environment.CurrentDirectory)).Result;
 
             return Ok(text?.Remove(30));
         }
