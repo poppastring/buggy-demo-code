@@ -8,14 +8,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BuggyDemoCode.Controllers
 {
-    public class SlowAppHighCPUController : Controller
+    public class UnresponsiveHighCPUController : Controller
     {
         public IActionResult Index()
         {
             return Ok();
         }
 
-        public IActionResult ConcatonateString()
+        public IActionResult ConcatString()
         {
             var html = "<table cellpadding=\"0\" cellspacing=\"0\"><tbody><tr>";
             var newrocord = new DataRecord() { FirstName = "Marco", LastName = "Polo", Address1 = "Lichfield Road", Address2 = "", City = "", State = "Indiana" };

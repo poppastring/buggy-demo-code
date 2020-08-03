@@ -11,6 +11,11 @@ namespace BuggyDemoCode.Controllers
 {
     public class ErrorsExceptionsCrashController : BaseController
     {
+        public IActionResult Index()
+        {
+            return Ok();
+        }
+
         public IActionResult OutOfRange()
         {
             var sb = new StringBuilder();

@@ -12,8 +12,7 @@ namespace BuggyDemoCode.Controllers
     {
         protected async Task<string> ReadTextAsync(string filePath)
         {
-            using (FileStream sourceStream = new FileStream(filePath,FileMode.Open, FileAccess.Read, FileShare.Read,
-                                                            bufferSize: 4096, useAsync: true))
+            using (FileStream sourceStream = new FileStream(filePath,FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize: 4096, useAsync: true))
             {
                 StringBuilder sb = new StringBuilder();
 

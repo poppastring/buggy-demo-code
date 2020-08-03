@@ -6,18 +6,18 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BuggyDemoCode.Controllers
 {
-    public class SlowAppLowCPUController : BaseController
+    public class UnresponsiveLowCPUController : BaseController
     {
         public IActionResult Index()
         {
             return Ok();
         }
 
-        public IActionResult ReadDataFromFile()
+        public IActionResult SyncOverAsync()
         {
-            var text = ReadTextAsync(@"C:\dev\test.txt").Result;
+            var text = ReadTextAsync(string.Format(@"{0}\test.txt", Environment.CurrentDirectory)).Result;
 
-            return Ok(text.Remove(30));
+            return Ok(text?.Remove(30));
         }
     }
 }
