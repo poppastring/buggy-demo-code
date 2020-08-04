@@ -14,6 +14,7 @@ namespace BuggyDemoCode.Controllers
             return Ok();
         }
 
+        [HttpGet("memoryleak/static-references")]
         public IActionResult StaticObjects()
         {
             var val = new DataRecord() { FirstName = "Mark", LastName = "Smith", Address1 = "Wem Street", Address2 = "", City = "Lichfield", State = "Ohio" };

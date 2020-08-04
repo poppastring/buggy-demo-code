@@ -15,6 +15,7 @@ namespace BuggyDemoCode.Controllers
             return Ok();
         }
 
+        [HttpGet("highcpu/concatonate-large-strings")]
         public IActionResult ConcatString()
         {
             var html = "<table cellpadding=\"0\" cellspacing=\"0\"><tbody><tr>";
@@ -30,6 +31,7 @@ namespace BuggyDemoCode.Controllers
             return Ok(html);
         }
 
+        [HttpGet("highcpu/poorly-designed-regex")]
         public IActionResult PoorRegex()
         {
             string search = "https://www.poppastring.com/blog/photos/a.197028616990372.62904.196982426994991/1186500984709792/?type=1&permPage=1";

@@ -13,6 +13,7 @@ namespace BuggyDemoCode.Controllers
             return Ok();
         }
 
+        [HttpGet("unresponsive/concatonate-large-strings")]
         public IActionResult SyncOverAsyncResult()
         {
             var text = ReadTextAsync(string.Format(@"{0}\\test.txt", Environment.CurrentDirectory)).Result;
