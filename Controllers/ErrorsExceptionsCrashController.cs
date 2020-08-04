@@ -38,5 +38,26 @@ namespace BuggyDemoCode.Controllers
 
             return Ok();
         }
+
+        public Task ParallelAsyncCrash()
+        {
+            var list = new List<int>();
+
+            var tasks = new Task[10];
+
+            for (int i = 0; i < tasks.Length; i++)
+            {
+                tasks[i] = GetNumberAsync(list, i);
+            }
+
+            return Task.WhenAll(tasks);
+        }
+
+        private async Task GetNumberAsync(List<int> results, int number)
+        {
+            await Task.Delay(300); // We want an IO bound call that will take some indeterminate time 200-300ms
+
+            results.Add(number);
+        }
     }
 }
