@@ -1,6 +1,6 @@
 # Buggy Demo Code 
 
-Have you ever seen a a killer demo that fizzles at the ends up because it ends up being a _Thread.Wait()_ or _throw new Exception()_! The problem with this approach is that it lacks a little imagination becuase  we all know "X never, ever, marks the spot".
+Have you ever seen a killer demo that fizzles at the ends up because the root cause  ends up being a _Thread.Wait()_ or _throw new Exception()_! The problem with this approach is that it lacks  imagination becuase we all know "X never, ever, marks the spot".
 
 The goal of this repository is to collect a list of subtle, possibly nontrivial,  bugs that can be easily integrated into .NET Core demos.  This app is not an end-to-end demo, it is simply designed to illustrate a classes of bugs and antipatterns that you can easily lift and shift into your own full demos.
 
