@@ -37,7 +37,9 @@ namespace BuggyDemoCode.Controllers
         [HttpGet("crash/async-void")]
         public IActionResult AsyncVoidCrash()
         {
-            WriteToFileBackgroundOperationAsync("", "Hello World\r\n");
+            string filename = EndsUpReturningNullInProduction();
+
+            WriteToFileBackgroundOperationAsync(filename, "Hello World\r\n");
 
             return Ok();
         }

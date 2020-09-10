@@ -40,5 +40,10 @@ namespace BuggyDemoCode.Controllers
             };
         }
 
+        protected string EndsUpReturningNullInProduction()
+        {
+            return null;
+        }
+
     }
 }

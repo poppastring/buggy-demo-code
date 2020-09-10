@@ -13,7 +13,11 @@ namespace BuggyDemoCode.Controllers
             return Ok();
         }
 
-        [HttpGet("unresponsive/concatonate-large-strings")]
+        /// <summary>
+        /// e.g. wrk -c 256 -t 10 -d 20 https://localhost:5001/lowcpu/uses-too-many-threadpool-thread
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("lowcpu/uses-too-many-threadpool-threads")]
         public IActionResult SyncOverAsyncResult()
         {
             var text = ReadTextAsync(string.Format(@"{0}\\test.txt", Environment.CurrentDirectory)).Result;
