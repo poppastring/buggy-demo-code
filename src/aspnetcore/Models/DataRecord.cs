@@ -21,9 +21,16 @@ namespace BuggyDemoCode.Models
 
         private static List<DataRecord> _instances = new List<DataRecord>();
 
+        private byte[] internaldata = new byte[8000];
+
         public DataRecord()
         {
             _instances.Add(this);
+
+            for (int i = 0; i < internaldata.Length; i++)
+            {
+                internaldata[i] = 0x20;
+            }
         }
     }
 }

@@ -4,11 +4,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using BuggyDemoCode.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace BuggyDemoCode.Controllers
 {
     public class MemoryLeakController : Controller
     {
+        private IMemoryCache cache;
+
+        public MemoryLeakController(IMemoryCache cache)
+        {
+            this.cache = cache;
+        }
+
         public IActionResult Index()
         {
             return Ok();
@@ -26,6 +34,26 @@ namespace BuggyDemoCode.Controllers
             var val3 = new DataRecord() { FirstName = "Marco", LastName = "Stephen", Address1 = "Lichfield Road", Address2 = "", City = "", State = "Indiana" };
 
             return Ok(val3.TotalCount);
+        }
+
+        [HttpGet("memoryleak/references-in-cache/{data}")]
+        public IActionResult ReferencesInCache(string data)
+        {
+            var id = Guid.NewGuid();
+            var customer = new CustomerRecord() { FirstName = "Marco", LastName = "Stephen", Address1 = "Lichfield Road", Address2 = "", City = "", State = "Indiana", Id = id.ToString(), Data = data };
+
+            var cacheEntryOptions = new MemoryCacheEntryOptions()
+                                        .SetSlidingExpiration(TimeSpan.FromSeconds(10))
+                                        .RegisterPostEvictionCallback(callback: CodeCleanUp, state: this);
+
+            cache.Set(id.ToString(), customer, cacheEntryOptions);
+
+            return Ok();
+        }
+
+        private void CodeCleanUp(object key, object value, EvictionReason reason, object state)
+        {
+            var message = $"Entry was evicted. Reason: {reason}.";
         }
     }
 }

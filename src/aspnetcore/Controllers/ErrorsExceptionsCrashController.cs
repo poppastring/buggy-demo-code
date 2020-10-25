@@ -34,6 +34,16 @@ namespace BuggyDemoCode.Controllers
             return Ok(sb.ToString());
         }
 
+        [HttpGet("crash/stack-overflow")]
+        public IActionResult StackOverflow()
+        {
+            var tag = new ValidTag();
+
+            tag.MyTag = "<i>";
+
+            return Ok(tag.MyTag);
+        }
+
         [HttpGet("crash/async-void")]
         public IActionResult AsyncVoidCrash()
         {
@@ -67,10 +77,10 @@ namespace BuggyDemoCode.Controllers
         {
             await Task.Delay(300); // Exchange with an IO bound call that will take some indeterminate time 100-300ms
 
-            using (var client = new HttpClient())
-            {    
+            //using (var client = new HttpClient())
+            //{    
                 // await client.GetStringAsync(string.Format("https://www.poppastring.com/blog/page/{0}", number));
-            }
+            //}
 
             // Tracking that the page retrieval occurred...
             results.Add(number);
