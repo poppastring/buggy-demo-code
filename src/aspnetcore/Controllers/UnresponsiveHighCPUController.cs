@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BuggyDemoCode.Controllers
 {
-    public class UnresponsiveHighCPUController : Controller
+    public class UnresponsiveHighCPUController : BaseController
     {
         public IActionResult Index()
         {
@@ -32,11 +32,26 @@ namespace BuggyDemoCode.Controllers
         }
 
         [HttpGet("highcpu/poorly-designed-regex")]
-        public IActionResult PoorRegex()
+        public async Task<ActionResult> PoorRegex()
         {
-            string search = "https://www.poppastring.com/blog/photos/a.197028616990372.62904.196982426994991/1186500984709792/?type=1&permPage=1";
+            var validate = new SiteUrlValidater();
+            var tasks = new List<Task>();
 
-            return Ok(Regex.IsMatch(search, @"^http(s)?://([\w-]+.)+[\w-]+(/[\w- ./?%&=])?$"));
+            // Tight loop, writing to a file on disk
+            tasks.Add(validate.BigForLoop());
+
+            // Another tight loop, writing to another file on disk
+            tasks.Add(validate.BigWhileLoop());
+
+            tasks.Add(validate.BigWhileLoop());
+
+            // Validate a URL, just once
+            //tasks.Add(validate.Search("https://www.poppastring.com/blog/photos/a.197028616990372.62904.196982426994991/1186500984709792/?type=1&permPage=1"));
+
+            await Task.WhenAll(tasks.ToArray());
+
+            return Ok();
         }
+
     }
 }
