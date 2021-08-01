@@ -53,5 +53,36 @@ namespace BuggyDemoCode.Controllers
             return Ok();
         }
 
+
+
+        [HttpGet("task/testing")]
+        public async Task<ActionResult> SomeTaskExample()
+        {
+            var validate = new SiteUrlValidater();
+            var tasks = new List<Task>();
+
+            tasks.Add(Task.Delay(5000));
+            tasks.Add(Task.Delay(10000));
+            tasks.Add(Task.Delay(15000));
+
+
+            await Task.WhenAll(tasks.ToArray());
+
+            return Ok();
+        }
+
+        public async Task<int> BigWhileLoop()
+        {
+            int total = 0;
+
+            do
+            {
+
+            } while (total < 100);
+
+            return total;
+        }
+
+
     }
 }

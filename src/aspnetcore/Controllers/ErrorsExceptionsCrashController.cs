@@ -12,6 +12,9 @@ namespace BuggyDemoCode.Controllers
 {
     public class ErrorsExceptionsCrashController : BaseController
     {
+        private static int counter = 0;
+        private const int OUTPUT_FREQUENCY = 1000;
+
         public IActionResult Index()
         {
             return Ok();
@@ -36,6 +39,14 @@ namespace BuggyDemoCode.Controllers
 
         [HttpGet("crash/stack-overflow")]
         public IActionResult StackOverflow()
+        {
+            StackOverflowExample();
+
+            return Ok();
+        }
+
+        [HttpGet("crash/stack-overflow2")]
+        public IActionResult StackOverflow2()
         {
             var tag = new ValidTag();
 
@@ -84,6 +95,27 @@ namespace BuggyDemoCode.Controllers
 
             // Tracking that the page retrieval occurred...
             results.Add(number);
+        }
+
+
+        private void StackOverflowExample()
+        {
+            
+            try 
+            {
+                counter++;
+
+                if (counter % OUTPUT_FREQUENCY == 0)
+                {
+                    Console.WriteLine($"Current count: {counter}");
+                }
+
+                StackOverflowExample();
+            }
+            catch (StackOverflowException exception)
+            {
+                Console.WriteLine(exception);
+            }
         }
     }
 }
