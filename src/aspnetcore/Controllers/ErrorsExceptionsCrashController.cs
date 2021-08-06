@@ -100,22 +100,15 @@ namespace BuggyDemoWeb.Controllers
 
         private void StackOverflowExample()
         {
+            counter++;
 
-            try
+            if (counter % OUTPUT_FREQUENCY == 0)
             {
-                counter++;
-
-                if (counter % OUTPUT_FREQUENCY == 0)
-                {
-                    Console.WriteLine($"Current count: {counter}");
-                }
-
-                StackOverflowExample();
+                Console.WriteLine($"Current count: {counter}");
             }
-            catch (StackOverflowException exception)
-            {
-                Console.WriteLine(exception);
-            }
+
+            StackOverflowExample();
+
         }
     }
 }
