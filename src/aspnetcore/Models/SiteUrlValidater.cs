@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace BuggyDemoCode.Models
+namespace BuggyDemoWeb.Models
 {
     public class SiteUrlValidater
     {

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using BuggyDemoCode.Models;
+using BuggyDemoWeb.Models;
+using BuggyDemoWeb.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BuggyDemoCode.Controllers
+namespace BuggyDemoWeb.Controllers
 {
     public class UnresponsiveHighCPUController : BaseController
     {

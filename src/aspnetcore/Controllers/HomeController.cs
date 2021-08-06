@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using BuggyDemoCode.Models;
+using BuggyDemoWeb.Models;
 
-namespace BuggyDemoCode.Controllers
+namespace BuggyDemoWeb.Controllers
 {
     public class HomeController : Controller
     {

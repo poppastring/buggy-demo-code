@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BuggyDemoCode.Models
+namespace BuggyDemoWeb.Models
 {
     public class ValidTag
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace BuggyDemoCode.Models
+namespace BuggyDemoWeb.Models
 {
     public class ErrorViewModel
     {

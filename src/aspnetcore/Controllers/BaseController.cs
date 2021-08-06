@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BuggyDemoCode.Controllers
+namespace BuggyDemoWeb.Controllers
 {
     public class BaseController : Controller
     {
@@ -15,7 +15,7 @@ namespace BuggyDemoCode.Controllers
 
             _ = Task.Delay(3000);
 
-            using (FileStream sourceStream = new FileStream(filePath,FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize: 4096, useAsync: true))
+            using (FileStream sourceStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize: 4096, useAsync: true))
             {
                 StringBuilder sb = new StringBuilder();
 

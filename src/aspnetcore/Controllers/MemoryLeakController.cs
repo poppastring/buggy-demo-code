@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BuggyDemoCode.Models;
+using BuggyDemoWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace BuggyDemoCode.Controllers
+namespace BuggyDemoWeb.Controllers
 {
     public class MemoryLeakController : Controller
     {

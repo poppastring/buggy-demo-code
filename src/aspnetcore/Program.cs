@@ -7,8 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace BuggyDemoCode
-{
+namespace BuggyDemoWeb
+{ 
     public class Program
     {
         public static void Main(string[] args)

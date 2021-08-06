@@ -4,11 +4,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using BuggyDemoCode.Models;
+using BuggyDemoWeb.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BuggyDemoCode.Controllers
+namespace BuggyDemoWeb.Controllers
 {
     public class ErrorsExceptionsCrashController : BaseController
     {
@@ -90,7 +90,7 @@ namespace BuggyDemoCode.Controllers
 
             //using (var client = new HttpClient())
             //{    
-                // await client.GetStringAsync(string.Format("https://www.poppastring.com/blog/page/{0}", number));
+            // await client.GetStringAsync(string.Format("https://www.poppastring.com/blog/page/{0}", number));
             //}
 
             // Tracking that the page retrieval occurred...
@@ -100,8 +100,8 @@ namespace BuggyDemoCode.Controllers
 
         private void StackOverflowExample()
         {
-            
-            try 
+
+            try
             {
                 counter++;
 

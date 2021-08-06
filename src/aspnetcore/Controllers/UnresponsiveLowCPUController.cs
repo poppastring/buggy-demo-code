@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BuggyDemoWeb.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BuggyDemoCode.Controllers
+namespace BuggyDemoWeb.Controllers
 {
     public class UnresponsiveLowCPUController : BaseController
     {
