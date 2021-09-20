@@ -6,11 +6,19 @@ using System.Threading.Tasks;
 using BuggyDemoWeb.Models;
 using BuggyDemoWeb.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using BuggyDemoCode.Services;
 
 namespace BuggyDemoWeb.Controllers
 {
     public class UnresponsiveHighCPUController : BaseController
     {
+        private readonly LegacyService legacyService;
+
+        public UnresponsiveHighCPUController(LegacyService legacyService)
+        {
+            this.legacyService = legacyService;
+        }
+
         public IActionResult Index()
         {
             return Ok();
@@ -32,29 +40,24 @@ namespace BuggyDemoWeb.Controllers
             return Ok(html);
         }
 
-        [HttpGet("highcpu/poorly-designed-regex")]
-        public async Task<ActionResult> PoorRegex()
+        [HttpGet("highcpu/process-my-data")]
+        public async Task<ActionResult> DataProcessing()
         {
-            var validate = new SiteUrlValidater();
             var tasks = new List<Task>();
 
-            // Tight loop, writing to a file on disk
-            tasks.Add(validate.BigForLoop());
+            // Process my data original version, big for loop
+            tasks.Add(legacyService.ProcessBigDataFile());
 
-            // Another tight loop, writing to another file on disk
-            tasks.Add(validate.BigWhileLoop());
-
-            tasks.Add(validate.BigWhileLoop());
+            // Process my data version two, big while loop
+            tasks.Add(legacyService.ProcessBigDataFile2());
 
             // Validate a URL, just once
-            //tasks.Add(validate.Search("https://www.poppastring.com/blog/photos/a.197028616990372.62904.196982426994991/1186500984709792/?type=1&permPage=1"));
+            tasks.Add(legacyService.ValidateUrl(legacyService.EndPointUri));
 
             await Task.WhenAll(tasks.ToArray());
 
             return Ok();
         }
-
-
 
         [HttpGet("task/testing")]
         public async Task<ActionResult> SomeTaskExample()
@@ -71,19 +74,5 @@ namespace BuggyDemoWeb.Controllers
 
             return Ok();
         }
-
-        public async Task<int> BigWhileLoop()
-        {
-            int total = 0;
-
-            do
-            {
-
-            } while (total < 100);
-
-            return total;
-        }
-
-
     }
 }
