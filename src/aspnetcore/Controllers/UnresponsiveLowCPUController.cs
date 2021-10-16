@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BuggyDemoWeb.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using BuggyDemoCode.Services;
+using System.Threading;
 
 namespace BuggyDemoWeb.Controllers
 {
@@ -91,5 +91,40 @@ namespace BuggyDemoWeb.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Deadlock...
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("lowcpu/deadlocked-tasks-v1")]
+        public async Task<IActionResult> CreateDeadlockTask()
+        {
+            await legacyService.SimpleDeadLockAsyncOperation();
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Deadlock with a semaphore
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("lowcpu/deadlocked-tasks-v2")]
+        public async Task<IActionResult> CreateDeadlockTaskSemaphore()
+        {
+            await legacyService.SemaphoreDeadLockAsyncOperations();
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Thread blocked on a lock owned by another thread...
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("lowcpu/deadlocked-tasks-v3")]
+        public IActionResult CreateDeadlockTaskYieldReturn()
+        {
+            legacyService.ReallyBadYieldReturn().Wait();
+
+            return Ok();
+        }
     }
 }
