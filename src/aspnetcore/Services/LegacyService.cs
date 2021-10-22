@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BuggyDemoWeb.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -83,6 +84,24 @@ namespace BuggyDemoCode.Services
             }
 
             Task UseAsync(int i) => Task.Delay(i + 5000);
+        }
+
+        public Task Transfer(Account fromaccount, Account toaccount, int sum)
+        {
+            var task = Task.Run(() =>
+            {
+                lock (fromaccount)
+                {
+                    Thread.Sleep(1000);
+                    lock (toaccount)
+                    {
+                        fromaccount.Balance -= sum;
+                        toaccount.Balance += sum;
+                    }
+                }
+            });
+
+            return task;
         }
     }
 }
