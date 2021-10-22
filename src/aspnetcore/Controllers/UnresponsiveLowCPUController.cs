@@ -5,16 +5,22 @@ using System.Threading.Tasks;
 using BuggyDemoWeb.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using BuggyDemoCode.Services;
+using System.Threading;
+using BuggyDemoWeb.Models;
 
 namespace BuggyDemoWeb.Controllers
 {
     public class UnresponsiveLowCPUController : BaseController
     {
         private readonly LegacyService legacyService;
+        private Account _accountChecking;
+        private Account _accountSaving;
 
         public UnresponsiveLowCPUController(LegacyService legacyService)
         {
             this.legacyService = legacyService;
+            _accountChecking = new Account() { Name = "Checking", Id = 1243143, Balance = 300 };
+            _accountSaving = new Account() { Name = "Savings", Id = 0984544, Balance = 4400 };
         }
 
         public IActionResult Index()
@@ -91,5 +97,49 @@ namespace BuggyDemoWeb.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Deadlock...
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("lowcpu/deadlocked-tasks-v1")]
+        public async Task<IActionResult> CreateDeadlockTask()
+        {
+            await legacyService.SimpleDeadLockAsyncOperation();
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Deadlock with a semaphore
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("lowcpu/deadlocked-tasks-v2")]
+        public async Task<IActionResult> CreateDeadlockTaskSemaphore()
+        {
+            await legacyService.SemaphoreDeadLockAsyncOperations();
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Thread blocked on a lock owned by another thread...
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("lowcpu/deadlocked-tasks-v3")]
+        public IActionResult CreateDeadlockTaskYieldReturn()
+        {
+            legacyService.ReallyBadYieldReturn().Wait();
+
+            return Ok();
+        }
+
+        [HttpGet("lowcpu/deadlocked-tasks-v4")]
+        public IActionResult TypicalDeadlockIssue()
+        {
+            legacyService.Transfer(_accountChecking, _accountSaving, 20);
+            legacyService.Transfer(_accountSaving, _accountChecking, 50);
+
+            return Ok();
+        }
     }
 }

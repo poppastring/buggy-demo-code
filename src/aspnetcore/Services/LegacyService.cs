@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BuggyDemoWeb.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -67,6 +68,24 @@ namespace BuggyDemoCode.Services
             {
                 await sourceStream.WriteAsync(encodedText, 0, encodedText.Length);
             };
+        }
+
+        public Task Transfer(Account fromaccount, Account toaccount, int sum)
+        {
+            var task = Task.Run(() =>
+            {
+                lock (fromaccount)
+                {
+                    Thread.Sleep(1000);
+                    lock (toaccount)
+                    {
+                        fromaccount.Balance -= sum;
+                        toaccount.Balance += sum;
+                    }
+                }
+            });
+
+            return task;
         }
     }
 }
