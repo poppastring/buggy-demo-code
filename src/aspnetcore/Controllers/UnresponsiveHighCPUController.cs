@@ -59,20 +59,11 @@ namespace BuggyDemoWeb.Controllers
             return Ok();
         }
 
-        [HttpGet("task/testing")]
-        public async Task<ActionResult> SomeTaskExample()
+        [HttpGet("highcpu/large-object-heap/{size=85000}")]
+        public int GetLOH1(int size)
         {
-            var validate = new SiteUrlValidater();
-            var tasks = new List<Task>();
-
-            tasks.Add(Task.Delay(5000));
-            tasks.Add(Task.Delay(10000));
-            tasks.Add(Task.Delay(15000));
-
-
-            await Task.WhenAll(tasks.ToArray());
-
-            return Ok();
+            return new byte[size].Length;
         }
+
     }
 }
