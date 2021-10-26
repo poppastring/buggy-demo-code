@@ -25,6 +25,22 @@ namespace BuggyDemoWeb.Controllers
             return Ok();
         }
 
+        [HttpGet("memoryleak/concatonate-strings-oom")]
+        public IActionResult ConcatString()
+        {
+            var html = "<table cellpadding=\"0\" cellspacing=\"0\"><tbody><tr>";
+            var newrocord = new DataRecord() { FirstName = "Marco", LastName = "Polo", Address1 = "Lichfield Road", Address2 = "", City = "", State = "Indiana" };
+
+            foreach (var rec in newrocord.MyList)
+            {
+                html += html + string.Format("<tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td><td>{4}</td><td>{5}</td> </tr>", rec.FirstName, rec.LastName, rec.Address1, rec.Address2, rec.City, rec.State);
+            }
+
+            html += html + "</table>";
+
+            return Ok(html);
+        }
+
         [HttpGet("memoryleak/static-object-leak")]
         public IActionResult StaticObjects()
         {
