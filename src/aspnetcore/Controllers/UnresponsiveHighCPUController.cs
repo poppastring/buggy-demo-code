@@ -22,7 +22,7 @@ namespace BuggyDemoWeb.Controllers
         public IActionResult Index()
         {
             return Ok();
-        }s
+        }
 
         [HttpGet("highcpu/process-my-data")]
         public async Task<ActionResult> DataProcessing()
