@@ -133,6 +133,10 @@ namespace BuggyDemoWeb.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Classic deadlock... Thread A locked waiting on Thread B, and vice versa
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("lowcpu/deadlocked-tasks-v4")]
         public IActionResult TypicalDeadlockIssue()
         {

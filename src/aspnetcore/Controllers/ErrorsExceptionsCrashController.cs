@@ -20,6 +20,10 @@ namespace BuggyDemoWeb.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Port exhaustion, apparently, not sure how to meausure it...
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("exception/port-exhaustion")]
         public async Task<int> HttpClientPortExhaustion()
         {
