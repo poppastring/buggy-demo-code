@@ -4,3 +4,4 @@
 
 /src/aspnetcore/.config/dotnet-tools.json
 /.vs
+/src/aspnetcore/Properties/ServiceDependencies/BDCWSW - Web Deploy
