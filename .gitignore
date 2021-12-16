@@ -4,4 +4,6 @@
 
 /src/aspnetcore/.config/dotnet-tools.json
 /.vs
-/src/aspnetcore/Properties/ServiceDependencies/BDCWSW - Web Deploy
+/src/BuggyDemoConsole/bin/Debug/net6.0
+/src/BuggyDemoConsole/obj/Debug/net6.0
+/src/BuggyDemoConsole/obj

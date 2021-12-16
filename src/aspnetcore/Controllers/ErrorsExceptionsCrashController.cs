@@ -20,6 +20,20 @@ namespace BuggyDemoWeb.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Port exhaustion, apparently, not sure how to meausure it...
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("exception/port-exhaustion")]
+        public async Task<int> HttpClientPortExhaustion()
+        {
+            using (var httpClient = new HttpClient())
+            {
+                var result = await httpClient.GetAsync("https://github.com");
+                return (int)result.StatusCode;
+            }
+        }
+
         [HttpGet("exception/out-of-range")]
         public IActionResult OutOfRange()
         {
