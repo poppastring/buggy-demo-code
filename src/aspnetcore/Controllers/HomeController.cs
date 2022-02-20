@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using BuggyDemoWeb.Models;
 
 namespace BuggyDemoWeb.Controllers
@@ -12,15 +13,21 @@ namespace BuggyDemoWeb.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IActionDescriptorCollectionProvider _actionProvider;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IActionDescriptorCollectionProvider actionProvider)
         {
+            _actionProvider = actionProvider;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var routes = _actionProvider.ActionDescriptors.Items.Where(x => x.AttributeRouteInfo != null);
+
+            var routeurls = routes.Select(x => new Routes() { Url = x.AttributeRouteInfo.Template }).ToList();
+
+            return View(routeurls);
         }
 
         public IActionResult Privacy()
