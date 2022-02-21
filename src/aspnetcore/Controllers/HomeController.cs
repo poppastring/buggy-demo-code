@@ -23,14 +23,15 @@ namespace BuggyDemoWeb.Controllers
 
         public IActionResult Index()
         {
-            var routes = _actionProvider.ActionDescriptors.Items.Where(x => x.AttributeRouteInfo != null);
+            var routes = _actionProvider.ActionDescriptors.Items
+                                .Where(x => x.AttributeRouteInfo != null)
+                                .Select(x => new Routes() { Url = x.AttributeRouteInfo.Template, DiagnosticsGroup = SelectDiagnsticType(x.AttributeRouteInfo.Template) })
+                                .ToList();
 
-            var routeurls = routes.Select(x => new Routes() { Url = x.AttributeRouteInfo.Template }).ToList();
-
-            return View(routeurls);
+            return View(routes);
         }
 
-        public IActionResult Privacy()
+        public IActionResult About()
         {
             return View();
         }
@@ -39,6 +40,27 @@ namespace BuggyDemoWeb.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+
+        private DiagnosticType SelectDiagnsticType(string route)
+        {
+            route = route.Split(@"/").FirstOrDefault();
+            switch (route)
+            {
+                case("crash"):
+                    return DiagnosticType.Crash;
+                case ("exception"):
+                    return DiagnosticType.Exceptions;
+                case ("highcpu"):
+                    return DiagnosticType.HighCPU;
+                case ("lowcpu"):
+                    return DiagnosticType.UnreponsiveLowCPU;
+                case ("memoryleak"):
+                    return DiagnosticType.MemoryLeak;
+                default:
+                    return DiagnosticType.Crash;
+            }
         }
     }
 }
