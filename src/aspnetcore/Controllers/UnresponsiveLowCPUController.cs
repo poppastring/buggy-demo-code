@@ -97,6 +97,14 @@ namespace BuggyDemoWeb.Controllers
             return Ok(result);
         }
 
+        [HttpGet("lowcpu/using-sync-is-better-than-mixing-sync-async")]
+        public IActionResult CompareToSyncResultFixed()
+        {
+            var result = legacyService.DoSyncOperationWell();
+
+            return Ok(result);
+        }
+
         /// <summary>
         /// Deadlock...
         /// </summary>

@@ -23,6 +23,15 @@ namespace BuggyDemoCode.Services
             return Guid.NewGuid().ToString();
         }
 
+        public string DoSyncOperationWell()
+        {
+            var random = new Random();
+
+            Thread.Sleep(random.Next(10) * 1000);
+
+            return Guid.NewGuid().ToString();
+        }
+
         public async Task<int> ValidateUrl(string url)
         {
             var result = await Task.Run(() =>
