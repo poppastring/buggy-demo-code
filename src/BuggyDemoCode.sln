@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31603.396
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuggyDemoWeb", "BuggyDemoWeb.csproj", "{C325594A-18EA-4505-8637-1CF96F65D066}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuggyDemoWeb", "BuggyDemoWeb\BuggyDemoWeb.csproj", "{C325594A-18EA-4505-8637-1CF96F65D066}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuggyDemoConsole", "..\BuggyDemoConsole\BuggyDemoConsole.csproj", "{0C54CEF4-27FC-4B7F-8E45-7A2D2FBCC65E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuggyDemoConsole", "BuggyDemoConsole\BuggyDemoConsole.csproj", "{0C54CEF4-27FC-4B7F-8E45-7A2D2FBCC65E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
