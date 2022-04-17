@@ -3,7 +3,7 @@
 ################################################################################
 
 /.vs
-/src/.vs
+/src/.vs/BuggyDemoCode
 /src/BuggyDemoConsole/.vs
 /src/BuggyDemoConsole/bin
 /src/BuggyDemoConsole/obj
