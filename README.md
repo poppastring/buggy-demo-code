@@ -20,3 +20,5 @@ This app is not intended to represent an end-to-end demo, it is simply designed 
 
 ### App is Unresponsive (low CPU)
 - Sync-over-async causing thread pool starvation
+- Deadlocks with Tasks
+- Deadlocks with Threads
