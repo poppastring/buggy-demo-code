@@ -153,5 +153,17 @@ namespace BuggyDemoWeb.Controllers
 
             return Ok();
         }
+
+        /// <summary>
+        /// Classic deadlock... Thread A locked waiting on Thread B, and vice versa
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("lowcpu/delayed-data-retrieval/{delay}")]
+        public async Task<IActionResult> RetrievingDataWithDelay(int delay = 0)
+        {
+            var result = await legacyService.RetrieveData(delay);
+
+            return Ok(result);
+        }
     }
 }
