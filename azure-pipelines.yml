@@ -11,7 +11,7 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '2e958622-ccea-4a1e-9b3e-a65ab47259e7'
-  imageRepository: 'buggy-demo-code'
+  imageRepository: 'buggy-demo-web'
   containerRegistry: 'poppastring.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/src/BuggyDemoWeb/Dockerfile'
   tag: '$(Build.BuildId)'
