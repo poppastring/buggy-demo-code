@@ -3,7 +3,7 @@
 ################################################################################
 
 /.vs
-/src/.vs/BuggyDemoCode
+/src/.vs/
 /src/BuggyDemoConsole/.vs
 /src/BuggyDemoConsole/bin
 /src/BuggyDemoConsole/obj
@@ -11,4 +11,4 @@
 /src/BuggyDemoWeb/.vs
 /src/BuggyDemoWeb/bin
 /src/BuggyDemoWeb/obj
-/src/BuggyDemoWeb/Properties/ServiceDependencies
+/src/BuggyDemoWeb/Properties/
