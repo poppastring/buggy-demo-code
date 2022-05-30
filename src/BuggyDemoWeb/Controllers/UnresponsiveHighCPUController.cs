@@ -24,7 +24,7 @@ namespace BuggyDemoWeb.Controllers
             return Ok();
         }
 
-        [HttpGet("highcpu/process-my-data")]
+        [HttpGet("highcpu/poor-regex")]
         public async Task<ActionResult> DataProcessing()
         {
             var tasks = new List<Task>();
@@ -41,6 +41,14 @@ namespace BuggyDemoWeb.Controllers
             await Task.WhenAll(tasks.ToArray());
 
             return Ok();
+        }
+
+        [HttpGet("highcpu/tight-loop/{seconds=30}")]
+        public IActionResult NoDataProcessing(int seconds)
+        {
+            var val = legacyService.ProcessDataHighCPU(seconds);
+
+            return Ok(val);
         }
 
         [HttpGet("highcpu/large-object-heap/{size=85000}")]

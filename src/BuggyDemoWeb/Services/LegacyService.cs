@@ -1,6 +1,7 @@
 ﻿using BuggyDemoWeb.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -40,6 +41,22 @@ namespace BuggyDemoCode.Services
             });
 
             return Convert.ToInt32(result);
+        }
+
+        public string ProcessDataHighCPU(int seconds)
+        {
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+
+            while (true)
+            {
+                watch.Stop();
+                if (watch.ElapsedMilliseconds > 1000 * seconds)
+                    break;
+                watch.Start();
+            }
+
+            return Guid.NewGuid().ToString();
         }
 
         public async Task<int> ProcessBigDataFile()

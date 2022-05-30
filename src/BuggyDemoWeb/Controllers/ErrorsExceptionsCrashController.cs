@@ -69,7 +69,7 @@ namespace BuggyDemoWeb.Controllers
             return Ok(tag.MyTag);
         }
 
-        [HttpGet("crash/async-void")]
+        [HttpGet("crash/async-void1")]
         public IActionResult AsyncVoidCrash()
         {
             string filename = EndsUpReturningNullInProduction();
@@ -77,6 +77,15 @@ namespace BuggyDemoWeb.Controllers
             WriteToFileBackgroundOperationAsync(filename, "Hello World\r\n");
 
             return Ok();
+        }
+
+        [HttpGet("crash/async-void2")]
+        public async void AsyncVoidCrash2()
+        {
+            await Task.Delay(1000);
+
+            // THIS will crash the process since we're writing after the response has completed on a background thread
+            await Response.WriteAsync("Hello World");
         }
 
         /// <summary>
