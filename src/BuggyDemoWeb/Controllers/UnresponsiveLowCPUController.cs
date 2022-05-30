@@ -10,7 +10,7 @@ using BuggyDemoWeb.Models;
 
 namespace BuggyDemoWeb.Controllers
 {
-    public class UnresponsiveLowCPUController : BaseController
+    public class UnresponsiveLowCPUController : Controller
     {
         private readonly LegacyService legacyService;
         private Account _accountChecking;

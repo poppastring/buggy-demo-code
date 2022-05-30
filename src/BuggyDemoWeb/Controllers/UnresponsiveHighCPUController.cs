@@ -10,7 +10,7 @@ using BuggyDemoCode.Services;
 
 namespace BuggyDemoWeb.Controllers
 {
-    public class UnresponsiveHighCPUController : BaseController
+    public class UnresponsiveHighCPUController : Controller
     {
         private readonly LegacyService legacyService;
 

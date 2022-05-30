@@ -13,6 +13,8 @@ namespace BuggyDemoCode.Services
 {
     public class LegacyService
     {
+        private static int counter = 0;
+        private const int OUTPUT_FREQUENCY = 1000;
         public string EndPointUri = "https://www.poppastring.com/blog/photos/a.197028616990372.62904.196982426994991/1186500984709792/?type=1&permPage=1";
 
         public async Task<string> DoAsyncOperationWell()
@@ -190,6 +192,55 @@ namespace BuggyDemoCode.Services
             await Task.Delay(delay * 1000);
 
             return Guid.NewGuid().ToString();
+        }
+
+        public void CreateStreamReadByte()
+        {
+            var ms = new MemoryStream(16);
+            ms.Close();
+            ms.ReadByte();
+        }
+
+        public string ValidateThisCollection()
+        {
+            var sb = new StringBuilder();
+            var list = new DataRecord();
+
+            for (int ctr = 0; ctr <= list.TotalCount; ctr++)
+            {
+                sb.Append(string.Format("Index {0}: {1}\r\n", ctr, list.MyList[ctr].LastName));
+
+                if (list.MyList[ctr].LastName == "test")
+                    break;
+            }
+
+            return sb.ToString();
+        }
+
+        public void InsertIntoAStringBuilder()
+        {
+            StringBuilder sb = new StringBuilder(15, 15);
+            sb.Append("Substring #1 ");
+            sb.Insert(0, "Substring #2 ", 1);
+        }
+
+        public void TypicalRecurrsionExample()
+        {
+            counter++;
+
+            if (counter % OUTPUT_FREQUENCY == 0)
+            {
+                Console.WriteLine($"Current count: {counter}");
+            }
+
+            TypicalRecurrsionExample();
+        }
+
+        public void ATypicalRecurrsionExample()
+        {
+            var tag = new ValidTag();
+
+            tag.MyTag = "<i>";
         }
     }
 }

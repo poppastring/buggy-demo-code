@@ -4,16 +4,21 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using BuggyDemoWeb.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using BuggyDemoWeb.Models;
+using BuggyDemoCode.Services;
 
 namespace BuggyDemoWeb.Controllers
 {
-    public class ErrorsExceptionsCrashController : BaseController
+    public class ErrorsExceptionsCrashController : Controller
     {
-        private static int counter = 0;
-        private const int OUTPUT_FREQUENCY = 1000;
+        private readonly LegacyService legacyService;
+
+        public ErrorsExceptionsCrashController(LegacyService legacyService)
+        {
+            this.legacyService = legacyService;
+        }
 
         public IActionResult Index()
         {
@@ -34,47 +39,44 @@ namespace BuggyDemoWeb.Controllers
             }
         }
 
+        /// <summary>
+        /// Port exhaustion, apparently, not sure how to meausure it...
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("exception/object-dispose")]
+        public IActionResult ObjectDisposeException()
+        {
+            legacyService.CreateStreamReadByte();
+
+            return Ok();
+        }
+
         [HttpGet("exception/out-of-range")]
         public IActionResult OutOfRange()
         {
-            var sb = new StringBuilder();
-            var list = new DataRecord();
+            var sb = legacyService.ValidateThisCollection();
 
-            for (int ctr = 0; ctr <= list.TotalCount; ctr++)
-            {
-                sb.Append(string.Format("Index {0}: {1}\r\n", ctr, list.MyList[ctr].LastName));
-
-                if (list.MyList[ctr].LastName == "test")
-                    break;
-            }
-
-            return Ok(sb.ToString());
+            return Ok(sb);
         }
 
         [HttpGet("crash/stack-overflow")]
         public IActionResult StackOverflow()
         {
-            StackOverflowExample();
+            legacyService.TypicalRecurrsionExample();
 
-            return Ok();
-        }
+            return Ok();        }
 
         [HttpGet("crash/stack-overflow2")]
         public IActionResult StackOverflow2()
         {
-            var tag = new ValidTag();
+            legacyService.ATypicalRecurrsionExample();
 
-            tag.MyTag = "<i>";
-
-            return Ok(tag.MyTag);
+            return Ok();
         }
 
         [HttpGet("crash/async-void1")]
         public IActionResult AsyncVoidCrash()
         {
-            string filename = EndsUpReturningNullInProduction();
-
-            WriteToFileBackgroundOperationAsync(filename, "Hello World\r\n");
 
             return Ok();
         }
@@ -118,20 +120,6 @@ namespace BuggyDemoWeb.Controllers
 
             // Tracking that the page retrieval occurred...
             results.Add(number);
-        }
-
-
-        private void StackOverflowExample()
-        {
-            counter++;
-
-            if (counter % OUTPUT_FREQUENCY == 0)
-            {
-                Console.WriteLine($"Current count: {counter}");
-            }
-
-            StackOverflowExample();
-
         }
     }
 }
