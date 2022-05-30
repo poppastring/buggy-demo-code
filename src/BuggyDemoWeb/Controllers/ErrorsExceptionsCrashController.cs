@@ -77,9 +77,13 @@ namespace BuggyDemoWeb.Controllers
         [HttpGet("crash/async-void1")]
         public IActionResult AsyncVoidCrash()
         {
+            RaiseEvent();
 
             return Ok();
         }
+
+        private void RaiseEvent() => RaiseEventVoidAsync();
+        private async void RaiseEventVoidAsync() => throw new Exception("Error!");
 
         [HttpGet("crash/async-void2")]
         public async void AsyncVoidCrash2()
