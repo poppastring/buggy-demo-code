@@ -242,5 +242,21 @@ namespace BuggyDemoCode.Services
 
             tag.MyTag = "<i>";
         }
+
+        public async Task Alpha()
+        {
+            await Beta();
+        }
+
+        async Task Beta()
+        {
+            await Gamma();
+        }
+
+        async Task Gamma()
+        {
+            await Task.Delay(3000);
+            throw new Exception();
+        }
     }
 }

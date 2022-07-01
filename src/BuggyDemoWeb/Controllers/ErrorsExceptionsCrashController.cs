@@ -59,6 +59,14 @@ namespace BuggyDemoWeb.Controllers
             return Ok(sb);
         }
 
+        [HttpGet("exception/in-async-call-stack")]
+        public async Task<IActionResult> OutOfRange2()
+        {
+            await legacyService.Alpha();
+
+            return Ok();
+        }
+
         [HttpGet("crash/stack-overflow")]
         public IActionResult StackOverflow()
         {
@@ -125,5 +133,6 @@ namespace BuggyDemoWeb.Controllers
             // Tracking that the page retrieval occurred...
             results.Add(number);
         }
+
     }
 }
