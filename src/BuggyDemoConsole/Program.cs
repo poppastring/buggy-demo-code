@@ -4,6 +4,7 @@
 Console.WriteLine("Press the");
 Console.WriteLine("1) Crash - Null reference exceptions.");
 Console.WriteLine("2) Crash - GC Heap presssure, OOM Exceptions.");
+Console.WriteLine("3) Crash - Inhandled Exception. Call Stack.");
 
 ConsoleKeyInfo keyReaded = Console.ReadKey();
 Console.WriteLine();
@@ -14,8 +15,12 @@ switch (keyReaded.Key)
         NullReferenceException();
         break;
 
-    case ConsoleKey.D2: //Number 1 Key
+    case ConsoleKey.D2:
         OutOfMemoryException();
+        break;
+
+    case ConsoleKey.D3:
+        await A();
         break;
 
     default: //Not known key pressed
@@ -47,4 +52,20 @@ static void OutOfMemoryException()
         answer = Console.ReadLine().ToUpper();
 
     } while (answer == "Y");
+}
+
+static async Task A()
+{
+    await B();
+}
+
+static async Task B()
+{
+    await C();
+}
+
+static async Task C()
+{
+    await Task.Delay(3000);
+    throw new Exception();
 }
