@@ -44,9 +44,9 @@ namespace BuggyDemoWeb.Controllers
         }
 
         [HttpGet("highcpu/tight-loop/{seconds=30}")]
-        public IActionResult NoDataProcessing(int seconds)
+        public async Task<IActionResult> NoDataProcessing(int seconds)
         {
-            var val = legacyService.ProcessDataHighCPU(seconds);
+            var val = await legacyService.ProcessDataHighCPU(seconds);
 
             return Ok(val);
         }

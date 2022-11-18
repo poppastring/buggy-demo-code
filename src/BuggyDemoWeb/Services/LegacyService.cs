@@ -45,20 +45,25 @@ namespace BuggyDemoCode.Services
             return Convert.ToInt32(result);
         }
 
-        public string ProcessDataHighCPU(int seconds)
+        public async Task<string> ProcessDataHighCPU(int seconds)
         {
             Stopwatch watch = new Stopwatch();
             watch.Start();
 
-            while (true)
+            var result = await Task.Run(() =>
             {
-                watch.Stop();
-                if (watch.ElapsedMilliseconds > 1000 * seconds)
-                    break;
-                watch.Start();
-            }
+                while (true)
+                {
+                    watch.Stop();
+                    if (watch.ElapsedMilliseconds > 1000 * seconds)
+                        break;
+                    watch.Start();
+                }
 
-            return Guid.NewGuid().ToString();
+                return Guid.NewGuid().ToString();
+            });
+
+            return result;
         }
 
         public async Task<int> ProcessBigDataFile()
