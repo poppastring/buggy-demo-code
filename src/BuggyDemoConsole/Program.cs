@@ -1,10 +1,12 @@
 ﻿using BuggyDemoConsole.Models;
-
+using System.Net.Http;
+using System.Text.Json;
 
 Console.WriteLine("Press the");
 Console.WriteLine("1) Crash - Null reference exceptions.");
 Console.WriteLine("2) Crash - GC Heap presssure, OOM Exceptions.");
 Console.WriteLine("3) Crash - Inhandled Exception. Call Stack.");
+Console.WriteLine("4) Crash - Null reference exceptions.");
 
 ConsoleKeyInfo keyReaded = Console.ReadKey();
 Console.WriteLine();
@@ -23,6 +25,10 @@ switch (keyReaded.Key)
         await A();
         break;
 
+    case ConsoleKey.D4:
+        await NullReferenceException2();
+        break;
+
     default: //Not known key pressed
         Console.WriteLine("Wrong key, please try again.");
         break;
@@ -35,6 +41,23 @@ static void NullReferenceException()
 {
     var f = new Foo();
     var name = f.Bar.Baz.Name;
+}
+
+static async Task NullReferenceException2()
+{
+
+    HttpClient sharedClient = new()
+    {
+        BaseAddress = new Uri("https://www.poppastring.com"),
+    };
+  
+    using HttpResponseMessage response = await sharedClient.GetAsync(".well-known/webfinger?resource=acct:poppastring@dotnet.social");
+
+    var jsonresponse = await response.Content.ReadAsStringAsync();
+
+    User? userinfo = JsonSerializer.Deserialize<User>(jsonresponse);
+
+    Console.WriteLine(userinfo?.person?.firstname);
 }
 
 
