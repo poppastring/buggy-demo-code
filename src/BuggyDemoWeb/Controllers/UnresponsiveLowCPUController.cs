@@ -13,8 +13,6 @@ namespace BuggyDemoWeb.Controllers
     public class UnresponsiveLowCPUController : Controller
     {
         private readonly LegacyService legacyService;
-        private Account _accountChecking;
-        private Account _accountSaving;
 
         public UnresponsiveLowCPUController(LegacyService legacyService)
         {
@@ -140,19 +138,37 @@ namespace BuggyDemoWeb.Controllers
 
             return Ok();
         }
-
-        /// <summary>
-        /// Classic deadlock... Thread A locked waiting on Thread B, and vice versa
-        /// </summary>
-        /// <returns></returns>
+        
         [HttpGet("lowcpu/deadlocked-tasks-v4")]
-        public IActionResult TypicalDeadlockIssue()
+        public IActionResult MoneyTransfer()
         {
-            legacyService.Transfer(_accountChecking, _accountSaving, 20);
-            legacyService.Transfer(_accountSaving, _accountChecking, 50);
+            Transfer(_accountChecking, _accountSaving, 20);
+            Transfer(_accountSaving, _accountChecking, 50);
 
             return Ok();
         }
+
+        private Account _accountChecking;
+        private Account _accountSaving;
+
+        public Task Transfer(Account fromaccount, Account toaccount, int sum)
+        {
+            var task = Task.Run(() =>
+            {
+                lock (fromaccount)
+                {
+                    Thread.Sleep(1000);
+                    lock (toaccount)
+                    {
+                        fromaccount.Balance -= sum;
+                        toaccount.Balance += sum;
+                    }
+                }
+            });
+
+            return task;
+        }
+
 
         /// <summary>
         /// Classic deadlock... Thread A locked waiting on Thread B, and vice versa
