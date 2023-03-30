@@ -8,6 +8,7 @@ using BuggyDemoCode.Services;
 using System.Threading;
 using BuggyDemoWeb.Models;
 using Microsoft.Extensions.Configuration;
+using System.Runtime.CompilerServices;
 
 namespace BuggyDemoWeb.Controllers
 {
@@ -90,6 +91,7 @@ namespace BuggyDemoWeb.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("lowcpu/uses-too-many-threadpool-threads-v5")]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public IActionResult SyncOverAsyncResultV5()
         {
             string val = legacyService.RetrieveRemoteData().Result;
