@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using BuggyDemoCode.Services;
 using System.Threading;
 using BuggyDemoWeb.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace BuggyDemoWeb.Controllers
 {
@@ -83,6 +84,18 @@ namespace BuggyDemoWeb.Controllers
             return Ok(val);
         }
 
+        /// <summary>
+        /// sudo apt-get install siege
+        /// e.g. siege -c 100 -t1M https://localhost:5001/lowcpu/uses-too-many-threadpool-threads-v1
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("lowcpu/uses-too-many-threadpool-threads-v5")]
+        public IActionResult SyncOverAsyncResultV5()
+        {
+            string val = legacyService.RetrieveRemoteData().Result;
+
+            return Ok(val);
+        }
 
         /// <summary>
         /// sudo apt-get install siege
@@ -154,10 +167,6 @@ namespace BuggyDemoWeb.Controllers
             return Ok();
         }
 
-        /// <summary>
-        /// Classic deadlock... Thread A locked waiting on Thread B, and vice versa
-        /// </summary>
-        /// <returns></returns>
         [HttpGet("lowcpu/delayed-data-retrieval/{delay}")]
         public async Task<IActionResult> RetrievingDataWithDelay(int delay = 0)
         {

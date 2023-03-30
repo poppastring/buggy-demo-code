@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using BuggyDemoWeb.Models;
 using BuggyDemoCode.Services;
+using System.Runtime.CompilerServices;
 
 namespace BuggyDemoWeb.Controllers
 {
@@ -44,6 +45,7 @@ namespace BuggyDemoWeb.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("exception/object-dispose")]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public IActionResult ObjectDisposeException()
         {
             legacyService.CreateStreamReadByte();
@@ -52,6 +54,7 @@ namespace BuggyDemoWeb.Controllers
         }
 
         [HttpGet("exception/out-of-range")]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public IActionResult OutOfRange()
         {
             var sb = legacyService.ValidateThisCollection();

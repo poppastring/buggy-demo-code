@@ -1,9 +1,11 @@
 ﻿using BuggyDemoWeb.Models;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -16,6 +18,13 @@ namespace BuggyDemoCode.Services
         private static int counter = 0;
         private const int OUTPUT_FREQUENCY = 1000;
         public string EndPointUri = "https://www.poppastring.com/blog/photos/a.197028616990372.62904.196982426994991/1186500984709792/?type=1&permPage=1";
+        private readonly Uri connectionString;
+        static readonly HttpClient client = new HttpClient();
+
+        public LegacyService(IConfiguration config) 
+        {
+            connectionString = new Uri(config.GetConnectionString("DataWebServer"));
+        }
 
         public async Task<string> DoAsyncOperationWell()
         {
@@ -262,6 +271,21 @@ namespace BuggyDemoCode.Services
         {
             await Task.Delay(3000);
             throw new Exception();
+        }
+
+        public async Task<string> RetrieveRemoteData()
+        {
+            var random = new Random();
+            var delay = random.Next(10) * 1000;
+
+            var url = new Uri(connectionString, $"lowcpu/delayed-data-retrieval/{delay}").AbsoluteUri;
+
+            using HttpResponseMessage response = await client.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+
+            return responseBody;
         }
     }
 }
