@@ -275,8 +275,7 @@ namespace BuggyDemoCode.Services
 
         public async Task<string> RetrieveRemoteData()
         {
-            var random = new Random();
-            var delay = random.Next(10) * 1000;
+            var delay = new Random().Next(10);
 
             var url = new Uri(connectionString, $"lowcpu/delayed-data-retrieval/{delay}").AbsoluteUri;
 
