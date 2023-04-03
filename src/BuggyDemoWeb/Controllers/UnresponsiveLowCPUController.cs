@@ -87,7 +87,7 @@ namespace BuggyDemoWeb.Controllers
 
         /// <summary>
         /// sudo apt-get install siege
-        /// e.g. siege -c 100 -t1M https://localhost:5001/lowcpu/uses-too-many-threadpool-threads-v1
+        /// e.g. siege -c 100 -t1M https://localhost:5001/lowcpu/uses-too-many-threadpool-threads-v5
         /// </summary>
         /// <returns></returns>
         [HttpGet("lowcpu/uses-too-many-threadpool-threads-v5")]
