@@ -121,6 +121,14 @@ namespace BuggyDemoWeb.Controllers
             return Task.WhenAll(tasks);
         }
 
+        [HttpGet("crash/async-void-delay")]
+        public async void AsyncVoidDelay(string query)
+        {
+            await legacyService.RetrieveData(1);
+
+            await Response.WriteAsync("Hello World");
+        }
+
         private async Task GetPageDataAsync(List<int> results, int number)
         {
             await Task.Delay(300); // Exchange with an IO bound call that will take some indeterminate time 100-300ms
