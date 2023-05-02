@@ -124,16 +124,18 @@ namespace BuggyDemoWeb.Controllers
             return Task.WhenAll(tasks);
         }
 
+        [HttpGet("crash/async-void-delay")]
+        public async Task AsyncVoidDelay(string query)
+        {
+            await legacyService.RetrieveData(1);
+
+            await Response.WriteAsync("Hello World");
+        }
+
         private async Task GetPageDataAsync(List<int> results, int number)
         {
             await Task.Delay(300); // Exchange with an IO bound call that will take some indeterminate time 100-300ms
 
-            //using (var client = new HttpClient())
-            //{    
-            // await client.GetStringAsync(string.Format("https://www.poppastring.com/blog/page/{0}", number));
-            //}
-
-            // Tracking that the page retrieval occurred...
             results.Add(number);
         }
 
