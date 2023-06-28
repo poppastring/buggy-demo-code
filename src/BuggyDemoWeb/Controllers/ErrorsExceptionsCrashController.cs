@@ -15,6 +15,7 @@ namespace BuggyDemoWeb.Controllers
     public class ErrorsExceptionsCrashController : Controller
     {
         private readonly LegacyService legacyService;
+          private const int DATA_ID = 2;
 
         public ErrorsExceptionsCrashController(LegacyService legacyService)
         {
@@ -125,12 +126,13 @@ namespace BuggyDemoWeb.Controllers
         }
 
         [HttpGet("crash/async-void-delay")]
-        public async Task AsyncVoidDelay(string query)
+        public async void AsyncVoidDelay(string query)
         {
-            await legacyService.RetrieveData(1);
+            var response = await legacyService.RetrieveData(DATA_ID);
 
-            await Response.WriteAsync("Hello World");
+            await Response.WriteAsync(response);
         }
+
 
         private async Task GetPageDataAsync(List<int> results, int number)
         {
