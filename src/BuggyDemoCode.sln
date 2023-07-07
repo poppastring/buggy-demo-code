@@ -5,7 +5,11 @@ VisualStudioVersion = 17.0.31603.396
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuggyDemoWeb", "BuggyDemoWeb\BuggyDemoWeb.csproj", "{C325594A-18EA-4505-8637-1CF96F65D066}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuggyDemoConsole", "BuggyDemoConsole\BuggyDemoConsole.csproj", "{0C54CEF4-27FC-4B7F-8E45-7A2D2FBCC65E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuggyDemoConsole", "BuggyDemoConsole\BuggyDemoConsole.csproj", "{0C54CEF4-27FC-4B7F-8E45-7A2D2FBCC65E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestSuite", "TestSuite", "{5DB4A497-1450-4F95-BD7E-E638F3C58BDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuggyBenchMark", "BuggyBenchMark\BuggyBenchMark.csproj", "{BFC303BA-8BCE-46EC-AEC7-DE31A718A15F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +25,16 @@ Global
 		{0C54CEF4-27FC-4B7F-8E45-7A2D2FBCC65E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C54CEF4-27FC-4B7F-8E45-7A2D2FBCC65E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C54CEF4-27FC-4B7F-8E45-7A2D2FBCC65E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFC303BA-8BCE-46EC-AEC7-DE31A718A15F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFC303BA-8BCE-46EC-AEC7-DE31A718A15F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFC303BA-8BCE-46EC-AEC7-DE31A718A15F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFC303BA-8BCE-46EC-AEC7-DE31A718A15F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BFC303BA-8BCE-46EC-AEC7-DE31A718A15F} = {5DB4A497-1450-4F95-BD7E-E638F3C58BDD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2D681F92-FAD2-42E9-B855-760464F8AA44}
