@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -48,7 +49,9 @@ namespace BuggyDemoCode.Services
         {
             var result = await Task.Run(() =>
             {
-                return Regex.IsMatch(url, @"^http(s)?://([\w-]+.)+[\w-]+(/[\w- ./?%&=])?$");
+                return Regex.IsMatch(url, @"((http|https)://)(www.)?" + "[a-zA-Z0-9@:%._\\+~#?&//=]" +
+                                                  "{2,256}\\.[a-z]" + "{2,6}\\b([-a-zA-Z0-9@:%" +
+                                                  "._\\+~#?&//=]*)");
             });
 
             return Convert.ToInt32(result);
@@ -220,6 +223,12 @@ namespace BuggyDemoCode.Services
             var sb = new StringBuilder();
             var list = new DataRecord();
 
+            foreach (var item in list.MyList)
+            {
+                if (item.LastName == "test")
+                    break;
+            }
+
             for (int ctr = 0; ctr <= list.TotalCount; ctr++)
             {
                 sb.Append(string.Format("Index {0}: {1}\r\n", ctr, list.MyList[ctr].LastName));
@@ -229,6 +238,19 @@ namespace BuggyDemoCode.Services
             }
 
             return sb.ToString();
+        }
+
+        public string ValidateAnotherCollection()
+        { 
+            var customers = this.RetrieveCustomerData();
+
+            foreach (var customer in customers)
+            {
+                if(customer.Id > 300)
+                    Console.WriteLine(this.CityAbbreviation(customer.Address.City));
+            }
+
+            return new Guid().ToString();
         }
 
         public void InsertIntoAStringBuilder()
@@ -286,5 +308,26 @@ namespace BuggyDemoCode.Services
 
             return responseBody;
         }
+
+        private List<CustomerRecord> RetrieveCustomerData()
+        {
+            return new List<CustomerRecord> {  
+                new CustomerRecord { FirstName = "Peter", LastName = "Smith", Address = new Address { Address1 = "13", City = "", State = "" }, Id = 123 },
+                new CustomerRecord { FirstName = "Andrew", LastName = "Jones", Address = new Address { Address1 = "64", City = "", State = "" }, Id = 224 },
+                new CustomerRecord { FirstName = "John", LastName = "Guy", Address = new Address { Address1 = "54345", City = "", State = "" }, Id = 554 },
+                new CustomerRecord { FirstName = "Tim", LastName = "Auburn", Address = new Address { Address1 = "35", City = "", State = "" }, Id = 855 },
+                new CustomerRecord { FirstName = "Clyde", LastName = "Ranger", Address = new Address { Address1 = "66", City = "", State = "" }, Id = 945 },
+                new CustomerRecord { FirstName = "Jeremiah", LastName = "Finch", Id = 324 },
+                new CustomerRecord { FirstName = "Kevin", LastName = "Brown", Address = new Address { Address1 = "76", City = "", State = "" }, Id = 725 },
+                new CustomerRecord { FirstName = "Ronald", LastName = "Biggs", Address = new Address { Address1 = "889", City = "", State = "" }, Id = 935 },
+                new CustomerRecord { FirstName = "Mark", LastName = "Stuart", Address = new Address { Address1 = "77", City = "", State = "" }, Id = 1203 },
+            };
+        }
+
+        private string CityAbbreviation(string cityname)
+        {
+            return cityname.Substring(0, 2);
+        }
+
     }
 }

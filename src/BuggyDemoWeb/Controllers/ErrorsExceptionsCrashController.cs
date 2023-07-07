@@ -63,6 +63,15 @@ namespace BuggyDemoWeb.Controllers
             return Ok(sb);
         }
 
+        [HttpGet("exception/null-reference-exception")]
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public IActionResult NullReferenceException()
+        {
+            var sb = legacyService.ValidateAnotherCollection();
+
+            return Ok(sb);
+        }
+
         [HttpGet("exception/in-async-call-stack")]
         public async Task<IActionResult> OutOfRange2()
         {
