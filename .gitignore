@@ -15,3 +15,5 @@
 /src/BuggyDemoWeb/Controllers/UnresponsiveLowCPUController.cs
 /src/BuggyBenchMark/bin
 /src/BuggyBenchMark/obj
+/src/BuggyDemoConsole/BuggyDemoConsole.csproj.user
+/src/BuggyDemoConsole/Properties
