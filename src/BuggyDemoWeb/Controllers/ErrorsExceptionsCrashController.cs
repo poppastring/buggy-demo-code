@@ -9,17 +9,20 @@ using Microsoft.AspNetCore.Mvc;
 using BuggyDemoWeb.Models;
 using BuggyDemoCode.Services;
 using System.Runtime.CompilerServices;
+using BuggyDemoWeb.Services;
 
 namespace BuggyDemoWeb.Controllers
 {
     public class ErrorsExceptionsCrashController : Controller
     {
         private readonly LegacyService legacyService;
-          private const int DATA_ID = 2;
+        private readonly AudioSpatialSignalProcess _audioService;
+        private const int DATA_ID = 2;
 
-        public ErrorsExceptionsCrashController(LegacyService legacyService)
+        public ErrorsExceptionsCrashController(LegacyService legacyService, AudioSpatialSignalProcess audioService)
         {
             this.legacyService = legacyService;
+            this._audioService = audioService;
         }
 
         public IActionResult Index()
@@ -142,6 +145,11 @@ namespace BuggyDemoWeb.Controllers
             await Response.WriteAsync(response);
         }
 
+        [HttpGet("crash/nan-call")]
+        public async Task<QuadraticRoots> NanCall()
+        {
+            return await AudioCompressionRatio();
+        }
 
         private async Task GetPageDataAsync(List<int> results, int number)
         {
@@ -150,5 +158,18 @@ namespace BuggyDemoWeb.Controllers
             results.Add(number);
         }
 
+        public async void RetrieveSupportInfo()
+        {
+            var response = await legacyService.RetrieveData(DATA_ID);
+
+            await Response.WriteAsync(response);
+        }
+
+        public async Task<QuadraticRoots> AudioCompressionRatio()
+        {
+            var response = await _audioService.RetrieveQuadraticRoots(3, 4, 5);
+
+            return response;
+        }
     }
 }

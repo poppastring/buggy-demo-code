@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using BuggyDemoWeb.Models;
+using Newtonsoft.Json;
 
 namespace BuggyDemoWeb.Controllers
 {
@@ -23,6 +24,13 @@ namespace BuggyDemoWeb.Controllers
 
         public IActionResult Index()
         {
+            var acct = new Account();
+            acct.Name = "Apple";
+            acct.Balance = 34;
+            acct.Id = 23423423;
+
+            string json = JsonConvert.SerializeObject(acct);
+
             var routes = _actionProvider.ActionDescriptors.Items
                                 .Where(x => x.AttributeRouteInfo != null)
                                 .Select(x => new Routes() { Url = x.AttributeRouteInfo.Template, DiagnosticsGroup = SelectDiagnsticType(x.AttributeRouteInfo.Template) })

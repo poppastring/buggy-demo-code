@@ -18,16 +18,15 @@ namespace BuggyBenchMark
         [GlobalSetup]
         public void GlobalSetup()
         {
-            //Write your initialization code here
         }
 
         [Benchmark]
         public void ProcessTextBasedDataSource()
         {
-            string someText = string.Empty;
+            StringBuilder stringBuilder = new StringBuilder();
             for (int i = 0; i < 10_000; i++)
             {
-                someText += "sometexttoconcatenate";
+                stringBuilder.Append("sometexttoconcatenate");
             }
         }
     }

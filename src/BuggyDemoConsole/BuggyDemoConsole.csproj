@@ -7,4 +7,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="WpfFrontEnd">
+      <HintPath>..\..\..\..\..\..\source\repos\WpfFrontEnd\WpfFrontEnd\bin\Debug\net6.0-windows\WpfFrontEnd.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

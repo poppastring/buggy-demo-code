@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using BuggyDemoCode.Services;
+using BuggyDemoWeb.Services;
 
 namespace BuggyDemoWeb
 {
@@ -25,7 +26,8 @@ namespace BuggyDemoWeb
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddSingleton<LegacyService>();
+                .AddSingleton<LegacyService>()
+                .AddSingleton<AudioSpatialSignalProcess>();
 
             services.AddControllersWithViews();
             services.AddMemoryCache();

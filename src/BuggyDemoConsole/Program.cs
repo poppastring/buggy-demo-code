@@ -5,8 +5,8 @@ using System.Text.Json;
 Console.WriteLine("Press the");
 Console.WriteLine("1) Crash - Null reference exceptions.");
 Console.WriteLine("2) Crash - GC Heap presssure, OOM Exceptions.");
-Console.WriteLine("3) Crash - Inhandled Exception. Call Stack.");
-Console.WriteLine("4) Crash - Null reference exceptions.");
+Console.WriteLine("3) Crash - Unhandled Exception. Call Stack.");
+Console.WriteLine("4) Crash - Another Null reference exceptions.");
 
 ConsoleKeyInfo keyReaded = Console.ReadKey();
 Console.WriteLine();
@@ -39,8 +39,9 @@ Console.ReadKey();
 
 static void NullReferenceException()
 {
-    var f = new Foo();
-    var name = f.Bar.Baz.Name;
+    var fu = new Foo();
+    
+    var name = fu.Bar.Baz.Name;
 }
 
 static async Task NullReferenceException2()
