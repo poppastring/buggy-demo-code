@@ -1,5 +1,9 @@
 ﻿using BuggyDemoConsole.Models;
+using System.Collections.Concurrent;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 
 Console.WriteLine("Press the");
@@ -27,6 +31,10 @@ switch (keyReaded.Key)
 
     case ConsoleKey.D4:
         await NullReferenceException2();
+        break;
+
+    case ConsoleKey.D5:
+        CopilotExceptionExample1();
         break;
 
     default: //Not known key pressed
@@ -58,7 +66,7 @@ static async Task NullReferenceException2()
 
     User? userinfo = JsonSerializer.Deserialize<User>(jsonresponse);
 
-    Console.WriteLine(userinfo?.person?.firstname);
+    Console.WriteLine(userinfo.person.firstname);
 }
 
 
@@ -93,3 +101,30 @@ static async Task C()
     await Task.Delay(3000);
     throw new Exception();
 }
+
+static void CopilotExceptionExample1()
+{
+    var resp = new MyDataResponse() { Message = "Some message...", Status = IntPtr.Parse("1") };
+
+    // 1. We return a json value of the data
+    var str = JsonSerializer.Serialize(resp);
+
+    // 2. Copilot: Explain the NotSupportedException
+
+    // 3. Copilot: Give me an JsonExport example that supports IntPtr.Zero
+
+    // 4. Copilot: Show me how to call the JsonExportExample
+
+
+    Console.WriteLine(str);
+}
+
+public class MyDataResponse
+{
+    public string Message { get; set; }
+    public IntPtr Status { get; set; }
+}
+
+
+
+
