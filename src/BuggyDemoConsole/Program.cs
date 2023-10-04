@@ -37,6 +37,10 @@ switch (keyReaded.Key)
         CopilotExceptionExample1();
         break;
 
+    case ConsoleKey.D6:
+        CopilotExceptionExample2();
+        break;
+
     default: //Not known key pressed
         Console.WriteLine("Wrong key, please try again.");
         break;
@@ -110,13 +114,19 @@ static void CopilotExceptionExample1()
     var str = JsonSerializer.Serialize(resp);
 
     // 2. Copilot: Explain the NotSupportedException
-
     // 3. Copilot: Give me an JsonExport example that supports IntPtr.Zero
-
     // 4. Copilot: Show me how to call the JsonExportExample
 
-
     Console.WriteLine(str);
+}
+
+static void CopilotExceptionExample2()
+{
+    var people = new List<string> { "Alfred Archer", "Billy Baller", "Billy Bob", "Cathy Carter" };
+
+    // var zane = people.First(x => x.StartsWith("Zane"));
+    var billy = people.SingleOrDefault(x => x.StartsWith("Billy"));
+    var billy2 = people.Single(x => x.StartsWith("Billy"));
 }
 
 public class MyDataResponse
