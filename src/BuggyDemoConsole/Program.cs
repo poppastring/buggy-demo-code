@@ -11,7 +11,7 @@ using System.Text.Json;
 const int INDEX_RANGE = 10;
 string arg0 = null;
 string arg1  = string.Empty;
-string arg2 = "3.73";
+string arg2 = "3";
 int[] arg3 = new int[INDEX_RANGE];
 
 Console.WriteLine("Press the");
@@ -30,6 +30,7 @@ Console.WriteLine("NP2) File Not Found Exception");
 Console.WriteLine("NP3) Microsoft Sql Exception");
 Console.WriteLine("NP4) IO Exception");
 Console.WriteLine("NP5) Http Request Exception");
+Console.WriteLine("NP6) Not Supported Exception");
 
 
 ConsoleKeyInfo keyReaded = Console.ReadKey();
@@ -56,7 +57,7 @@ switch (keyReaded.Key)
 
         break;
     case ConsoleKey.D7: //Format Exception
-        CanYouConverThisValue(arg2);
+        CanYouConvertThisValue(arg2);
         break;
     case ConsoleKey.D8: //Argument Null Exception
         ValidateThisValue(arg0);
@@ -83,7 +84,7 @@ switch (keyReaded.Key)
 
         break;
 
-    case ConsoleKey.NumPad6: //Http Request Exception
+    case ConsoleKey.NumPad6: //
         TryingThisCerealItsGreat();
         break;
     default: //Not known key pressed
@@ -99,14 +100,6 @@ static void WhereIsTheProblem()
     var fu = new Foo();
     var name = fu.Bar.Baz.Name;
 
-    //HttpClient sharedClient = new()
-    //{
-    //    BaseAddress = new Uri("https://www.poppastring.com"),
-    //};
-    //using HttpResponseMessage response = await sharedClient.GetAsync(".well-known/webfinger?resource=acct:poppastring@dotnet.social");
-    //var jsonresponse = await response.Content.ReadAsStringAsync();
-    //User? userinfo = JsonSerializer.Deserialize<User>(jsonresponse);
-    //Console.WriteLine(userinfo.person.firstname);
 }
 
 static void MyExceptionIsBetterThanYours()
@@ -170,10 +163,8 @@ static int TheCastOfTheShowIncludes(object val)
 
 static void TryingThisCerealItsGreat()
 {
-    var exc = new Exception("My Exception");
-    var resp = new MyDataResponse() { Message = "Some message...", Exception = exc };
-
-    // 1. We return a json value of the data
+    var resp = new MyDataResponse() { Message = "Some message...", Status = IntPtr.MinValue };
+   
     var str = JsonSerializer.Serialize(resp);
 
     Console.WriteLine(str);
@@ -182,7 +173,7 @@ static void TryingThisCerealItsGreat()
 public class MyDataResponse
 {
     public string Message { get; set; }
-    public Exception Exception { get; set; }
+    public IntPtr Status { get; set; }
 }
 
 
