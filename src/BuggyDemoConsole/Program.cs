@@ -1,13 +1,18 @@
 ﻿using BuggyDemoConsole.Models;
+using System;
 using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 
+const int INDEX_RANGE = 10;
 string arg0 = null;
 string arg1  = string.Empty;
+string arg2 = "3.73";
+int[] arg3 = new int[INDEX_RANGE];
 
 Console.WriteLine("Press the");
 Console.WriteLine("D1) Null Reference Exception");
@@ -51,24 +56,24 @@ switch (keyReaded.Key)
 
         break;
     case ConsoleKey.D7: //Format Exception
-
+        CanYouConverThisValue(arg2);
         break;
     case ConsoleKey.D8: //Argument Null Exception
         ValidateThisValue(arg0);
         break;
     case ConsoleKey.D9: //Argument Out Of Range Exception
-
+        ArguingRarelyFixesAnything(arg3);
         break;
     case ConsoleKey.D0: //Index Out Of Range Exception
-
+        CheckTheIndexCards(arg3);
         break;
     case ConsoleKey.NumPad1: //Invalid Cast Exception
-
+        TheCastOfTheShowIncludes(arg2);
         break;
     case ConsoleKey.NumPad2: //File Not Found Exception
 
         break;
-    case ConsoleKey.NumPad3: //File Not Found Exception
+    case ConsoleKey.NumPad3: //Microsft SQL Exception
 
         break;
     case ConsoleKey.NumPad4: //IO Exception
@@ -76,6 +81,10 @@ switch (keyReaded.Key)
         break;
     case ConsoleKey.NumPad5: //Http Request Exception
 
+        break;
+
+    case ConsoleKey.NumPad6: //Http Request Exception
+        TryingThisCerealItsGreat();
         break;
     default: //Not known key pressed
         Console.WriteLine("Wrong key, please try again.");
@@ -135,16 +144,37 @@ static int ValidateThisValue(string thevalue)
 }
 
 
-static void NotSupportedException()
+static int CanYouConvertThisValue(string age)
 {
-    var resp = new MyDataResponse() { Message = "Some message...", Status = IntPtr.Parse("1") };
+    return int.Parse(age);
+}
+
+static void ArguingRarelyFixesAnything(int[] myarray)
+{
+    if(myarray.Length >= INDEX_RANGE) 
+    {
+        throw new ArgumentOutOfRangeException(nameof(myarray), "Index is out of range.");
+    }
+}
+
+static void CheckTheIndexCards(int[] myarray)
+{
+    myarray[INDEX_RANGE] = 1000;
+}
+
+
+static int TheCastOfTheShowIncludes(object val)
+{
+    return (int)val;
+}
+
+static void TryingThisCerealItsGreat()
+{
+    var exc = new Exception("My Exception");
+    var resp = new MyDataResponse() { Message = "Some message...", Exception = exc };
 
     // 1. We return a json value of the data
     var str = JsonSerializer.Serialize(resp);
-
-    // 2. Copilot: Explain the NotSupportedException
-    // 3. Copilot: Give me an JsonExport example that supports IntPtr.Zero
-    // 4. Copilot: Show me how to call the JsonExportExample
 
     Console.WriteLine(str);
 }
@@ -152,7 +182,7 @@ static void NotSupportedException()
 public class MyDataResponse
 {
     public string Message { get; set; }
-    public IntPtr Status { get; set; }
+    public Exception Exception { get; set; }
 }
 
 
