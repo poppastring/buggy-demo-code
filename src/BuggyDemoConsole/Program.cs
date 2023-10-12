@@ -141,12 +141,12 @@ static int ValidateThisValue(string thevalue)
 {
     if (thevalue == null)
     {
-        throw new ArgumentNullException("thevalue");
+        throw new ArgumentNullException(nameof(thevalue));
     }
     
     if (thevalue.Length == 0)
     {
-        throw new ArgumentException("Zero-length string invalid", "thevalue");
+        throw new ArgumentException("Zero-length string invalid", nameof(thevalue));
     }
     return thevalue.Length;
 }
