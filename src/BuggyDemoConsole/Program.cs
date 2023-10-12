@@ -48,7 +48,7 @@ switch (keyReaded.Key)
         LoopHolesInLinq();
         break;
     case ConsoleKey.D4: //System Sql Exception
-
+        
         break;
     case ConsoleKey.D5: //Argument Exception
         ValidateThisValue(arg1);
@@ -72,7 +72,7 @@ switch (keyReaded.Key)
         TheCastOfTheShowIncludes(arg2);
         break;
     case ConsoleKey.NumPad2: //File Not Found Exception
-
+        WhereDidIPutThatThing("file.txt");
         break;
     case ConsoleKey.NumPad3: //Microsft SQL Exception
 
@@ -81,7 +81,7 @@ switch (keyReaded.Key)
 
         break;
     case ConsoleKey.NumPad5: //Http Request Exception
-
+        DataDataBricksAndClay();
         break;
 
     case ConsoleKey.NumPad6: //
@@ -110,6 +110,21 @@ static void MyExceptionIsBetterThanYours()
     {
         throw new EmployeeNotFoundException("Harshada");
     }   
+}
+
+static async void DataDataBricksAndClay()
+{
+    HttpClient sharedClient = new()
+    {
+        BaseAddress = new Uri("https://www.poppastring.com/"),
+    };
+
+    using HttpResponseMessage response = await sharedClient.GetAsync(".well-known1/webfinger?resource=acct:poppastring@dotnet.social");
+    response.EnsureSuccessStatusCode();
+
+    // var jsonresponse = await response.Content.ReadAsStringAsync();
+    //User? userinfo = JsonSerializer.Deserialize<User>(jsonresponse);
+    //Console.WriteLine(userinfo.person.firstname);
 }
 
 static void LoopHolesInLinq()
@@ -169,6 +184,20 @@ static void TryingThisCerealItsGreat()
 
     Console.WriteLine(str);
 }
+
+static string WhereDidIPutThatThing(string filename)
+{
+    string content = string.Empty;
+    FileInfo file = new FileInfo(filename);
+    StreamReader stRead = file.OpenText();
+    while (!stRead.EndOfStream)
+    {
+        content = content + stRead.ReadLine();
+    }
+
+    return content;
+}
+
 
 public class MyDataResponse
 {
