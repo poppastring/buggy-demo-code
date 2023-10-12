@@ -11,7 +11,7 @@ using System.Text.Json;
 const int INDEX_RANGE = 10;
 string arg0 = null;
 string arg1  = string.Empty;
-string arg2 = "3";
+string arg2 = "32.3";
 int[] arg3 = new int[INDEX_RANGE];
 
 Console.WriteLine("Press the");
@@ -22,7 +22,7 @@ Console.WriteLine("D4) System Sql Exception");
 Console.WriteLine("D5) Argument Exception");
 Console.WriteLine("D6) Exception");
 Console.WriteLine("D7) Format Exception");
-Console.WriteLine("D8) Argument Exception");
+Console.WriteLine("D8) Argument Null Exception");
 Console.WriteLine("D9) Argument Out Of Range Exception");
 Console.WriteLine("D0) Index Out Of Range Exception");
 Console.WriteLine("NP1) Invalid Cast Exception");
