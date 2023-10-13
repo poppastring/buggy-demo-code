@@ -130,11 +130,9 @@ static async void DataDataBricksAndClay()
 static void LoopHolesInLinq()
 {
     var people = new List<string> { "Mark Downie", "Mark Wilson-Thomas", "Andy Sterland", "Filisha Shah" };
+    // var mark = people.SingleOrDefault(x => x.StartsWith("Mark"));
 
-    var mark = people.SingleOrDefault(x => x.StartsWith("Mark"));
-
-    // var Shah = people.First(x => x.StartsWith("Shah"));
-    // var Mark2 = people.Single(x => x.StartsWith("Mark"));
+    var mark = people.First(x => x.StartsWith("Harshada"));
 }
 
 static int ValidateThisValue(string thevalue)
