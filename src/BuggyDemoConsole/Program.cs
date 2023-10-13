@@ -45,7 +45,8 @@ switch (keyReaded.Key)
         MyExceptionIsBetterThanYours();
         break;
     case ConsoleKey.D3: //Invalid Operation Exception
-        LoopHolesInLinq();
+        // LoopHolesInLinq();
+        IsItNullOrNothing();
         break;
     case ConsoleKey.D4: //System Sql Exception
         
@@ -133,6 +134,12 @@ static void LoopHolesInLinq()
     // var mark = people.SingleOrDefault(x => x.StartsWith("Mark"));
 
     var mark = people.First(x => x.StartsWith("Harshada"));
+}
+
+static void IsItNullOrNothing()
+{
+    int? nullableInt = null;
+    int nowInt = (int)nullableInt;
 }
 
 static int ValidateThisValue(string thevalue)
