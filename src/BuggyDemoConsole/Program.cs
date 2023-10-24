@@ -39,14 +39,15 @@ Console.WriteLine();
 switch (keyReaded.Key)
 {
     case ConsoleKey.D1: // Null Reference Exception
+        NotWhatYouThinkItIs();
         WhereIsTheProblem();
         break;
     case ConsoleKey.D2: //CustomException
         MyExceptionIsBetterThanYours();
         break;
     case ConsoleKey.D3: //Invalid Operation Exception
-        // LoopHolesInLinq();
-        IsItNullOrNothing();
+        LoopHolesInLinq();
+        // IsItNullOrNothing();
         break;
     case ConsoleKey.D4: //System Sql Exception
         
@@ -203,6 +204,13 @@ static string WhereDidIPutThatThing(string filename)
     return content;
 }
 
+static void NotWhatYouThinkItIs()
+{
+    Console.Write("Enter a number: ");
+    double x = Convert.ToDouble(Console.ReadLine());
+    x = (7 * x / 4 + 1 / 2) - (5 * x / 4 + 1 / 2) * Math.Acos(Math.PI * x);
+    Console.WriteLine(x);
+}
 
 public class MyDataResponse
 {
