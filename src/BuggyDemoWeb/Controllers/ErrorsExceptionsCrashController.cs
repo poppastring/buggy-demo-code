@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -59,9 +59,9 @@ namespace BuggyDemoWeb.Controllers
 
         [HttpGet("exception/out-of-range")]
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public IActionResult OutOfRange()
+        public async Task<IActionResult> OutOfRange()
         {
-            var sb = legacyService.ValidateThisCollection();
+            var sb = await legacyService.ValidateThisCollection();
 
             return Ok(sb);
         }
