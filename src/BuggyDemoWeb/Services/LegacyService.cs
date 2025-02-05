@@ -218,10 +218,12 @@ namespace BuggyDemoCode.Services
             ms.ReadByte();
         }
 
-        public string ValidateThisCollection()
+        public async Task<string> ValidateThisCollection()
         {
             var sb = new StringBuilder();
             var list = new DataRecord();
+
+            await Task.Delay(1000); 
 
             foreach (var item in list.MyList)
             {
