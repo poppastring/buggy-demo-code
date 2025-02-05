@@ -57,5 +57,20 @@ namespace BuggyDemoWeb.Controllers
             return new byte[size].Length;
         }
 
+        [HttpGet("highcpu/count-primes/{samplesize=10000}")]
+        public int CalculatePrimes(int samplesize)
+        {
+            var count = 0;
+
+            for (int num = 1; num <= samplesize; num++)
+            {
+                if (legacyService.IsPrime(num))
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
     }
 }
