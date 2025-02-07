@@ -2,15 +2,16 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
+EXPOSE 8080
+EXPOSE 8081
+
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["BuggyDemoWeb.csproj", "."]
-RUN dotnet restore "./BuggyDemoWeb.csproj"
+COPY ["BuggyDemoWeb/BuggyDemoWeb.csproj", "BuggyDemoWeb/"]
+RUN dotnet restore "BuggyDemoWeb/BuggyDemoWeb.csproj"
 COPY . .
-WORKDIR "/src/."
+WORKDIR "/src/BuggyDemoWeb"
 RUN dotnet build "BuggyDemoWeb.csproj" -c Release -o /app/build
 
 FROM build AS publish
